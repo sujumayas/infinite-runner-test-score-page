@@ -1,33 +1,303 @@
 <template>
   <Layout>
-    
     <!-- Learn how to use images here: https://gridsome.org/docs/images -->
-    <g-image alt="Example image" src="~/favicon.png" width="135" />
-    
-    <h1>Hello, world!</h1>
-   
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur excepturi labore tempore expedita, et iste tenetur suscipit explicabo! Dolores, aperiam non officia eos quod asperiores
-    </p>
-
-    <p class="home-links">
-      <a href="https://gridsome.org/docs" target="_blank" rel="noopener">Gridsome Docs</a>
-      <a href="https://github.com/gridsome/gridsome" target="_blank" rel="noopener">GitHub</a>
-    </p>
-
+    <h1>Bienvenidos...</h1>
+    <br />
+    <div class="game-wrapper">
+      <g-image src="~/images/bg.jpg" width="500" />
+      <div class="game-controlls">PLAY</div>
+    </div>
+    <br />
+    <p>Una leve descripcion del juego...</p>
   </Layout>
 </template>
 
 <script>
 export default {
   metaInfo: {
-    title: 'Hello, world!'
+    title: "Hello, world!"
+  }
+};
+</script>
+<style lang="scss">
+/*--------------------
+Body
+--------------------*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 450px;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(
+    ellipse farthest-corner at center top,
+    #f39264 0%,
+    #f2606f 100%
+  );
+  color: #fff;
+  font-family: "Open Sans", sans-serif;
+}
+
+/*--------------------
+Leaderboard
+--------------------*/
+.leaderboard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 285px;
+  height: 308px;
+  background: linear-gradient(to bottom, #3a404d, #181c26);
+  border-radius: 10px;
+  box-shadow: 0 7px 30px rgba(62, 9, 11, 0.3);
+
+  h1 {
+    font-size: 18px;
+    color: #e1e1e1;
+    padding: 12px 13px 18px;
+
+    & svg {
+      width: 25px;
+      height: 26px;
+      position: relative;
+      top: 3px;
+      margin-right: 6px;
+      vertical-align: baseline;
+    }
+  }
+
+  ol {
+    counter-reset: leaderboard;
+
+    li {
+      position: relative;
+      z-index: 1;
+      font-size: 14px;
+      counter-increment: leaderboard;
+      padding: 18px 10px 18px 50px;
+      cursor: pointer;
+      backface-visibility: hidden;
+      transform: translateZ(0) scale(1, 1);
+
+      &::before {
+        content: counter(leaderboard);
+        position: absolute;
+        z-index: 2;
+        top: 15px;
+        left: 15px;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        color: #c24448;
+        background: #fff;
+        border-radius: 20px;
+        text-align: center;
+      }
+
+      mark {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 18px 10px 18px 50px;
+        margin: 0;
+        background: none;
+        color: #fff;
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          z-index: 1;
+          bottom: -11px;
+          left: -9px;
+          border-top: 10px solid #c24448;
+          border-left: 10px solid transparent;
+          transition: all 0.1s ease-in-out;
+          opacity: 0;
+        }
+
+        &::after {
+          left: auto;
+          right: -9px;
+          border-left: none;
+          border-right: 10px solid transparent;
+        }
+      }
+
+      small {
+        position: relative;
+        z-index: 2;
+        display: block;
+        text-align: right;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fa6855;
+        box-shadow: 0 3px 0 rgba(0, 0, 0, 0.08);
+        // transform: scaleX(1.06) scaleY(1.03);
+        transition: all 0.3s ease-in-out;
+        opacity: 0;
+      }
+
+      &:nth-child(1) {
+        background: #fa6855;
+        &::after {
+          background: #fa6855;
+        }
+      }
+
+      &:nth-child(2) {
+        background: #e0574f;
+        &::after {
+          background: #e0574f;
+          box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+        }
+
+        & mark {
+          &::before,
+          &::after {
+            border-top: 6px solid #ba4741;
+            bottom: -7px;
+          }
+        }
+      }
+
+      &:nth-child(3) {
+        background: #d7514d;
+        &::after {
+          background: #d7514d;
+          box-shadow: 0 1px 0 rgba(0, 0, 0, 0.11);
+        }
+
+        & mark {
+          &::before,
+          &::after {
+            border-top: 2px solid #b0433f;
+            bottom: -3px;
+          }
+        }
+      }
+
+      &:nth-child(4) {
+        background: #cd4b4b;
+        &::after {
+          background: #cd4b4b;
+          box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        & mark {
+          &::before,
+          &::after {
+            top: -7px;
+            bottom: auto;
+            border-top: none;
+            border-bottom: 6px solid #a63d3d;
+          }
+        }
+      }
+
+      &:nth-child(5) {
+        background: #c24448;
+        border-radius: 0 0 10px 10px;
+        &::after {
+          background: #c24448;
+          box-shadow: 0 -2.5px 0 rgba(0, 0, 0, 0.12);
+          border-radius: 0 0 10px 10px;
+        }
+
+        & mark {
+          &::before,
+          &::after {
+            top: -9px;
+            bottom: auto;
+            border-top: none;
+            border-bottom: 8px solid #993639;
+          }
+        }
+      }
+    }
+
+    // hover
+    li:hover {
+      z-index: 2;
+      overflow: visible;
+
+      &::after {
+        opacity: 1;
+        transform: scaleX(1.06) scaleY(1.03);
+      }
+
+      & mark {
+        &::before,
+        &::after {
+          opacity: 1;
+          transition: all 0.35s ease-in-out;
+        }
+      }
+    }
   }
 }
-</script>
 
-<style>
+* {
+  //display: none;
+}
+
+.the-most {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  width: 50vw;
+  max-width: 200px;
+  padding: 10px;
+
+  img {
+    max-width: 100%;
+  }
+}
 .home-links a {
   margin-right: 1rem;
+}
+
+.game-wrapper {
+  max-width: 500px;
+  height: auto;
+  position: relative;
+  margin: 0 auto;
+}
+.game-controlls {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  font-family: monospace;
+  border: 1px solid white;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+}
+.game-controlls:hover {
+  color: black;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 </style>
