@@ -78,7 +78,9 @@ export default {
       );
       const json = await response.json();
       console.log(json);
-      this.users = json;
+      this.users = Object.values(json).sort((a, b) => {
+        return b.userScore - a.userScore;
+      });
       this.loaded = true;
     }
   },
@@ -91,10 +93,11 @@ export default {
   }
 };
 </script>
+
 <style lang="scss">
 /*--------------------
-Body
---------------------*/
+  Body
+  --------------------*/
 *,
 *::before,
 *::after {
@@ -115,8 +118,8 @@ body {
 }
 
 /*--------------------
-Leaderboard
---------------------*/
+  Leaderboard
+  --------------------*/
 .leaderboard {
   position: absolute;
   top: 50%;
